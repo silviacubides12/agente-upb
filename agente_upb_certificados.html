@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Agente UPB · Certificados académicos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@500;700&family=Libre+Franklin:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--red:#C8102E;--red-d:#9B0C23;--ink:#231F20;--mut:#6B6567;--bg:#F6F4F3;--card:#fff;--line:#E3DEDC;--ok:#1F7A4D;--warn:#B7791F;--soft:#FBE9EC;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--ink:#F1EDEC;--mut:#A89FA1;--bg:#171415;--card:#221E1F;--line:#383233;--soft:#3A1A20;--red:#E5384F;--ok:#4CC38A;--warn:#E0A94B}}
+:root[data-theme="dark"]{--ink:#F1EDEC;--mut:#A89FA1;--bg:#171415;--card:#221E1F;--line:#383233;--soft:#3A1A20;--red:#E5384F;--ok:#4CC38A;--warn:#E0A94B}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "Libre Franklin",system-ui,sans-serif}
+h1,h2,h3{font-family:"Source Serif 4",Georgia,serif;margin:0}
+header{background:var(--ink);color:#fff;border-bottom:4px solid var(--red)}
+:root[data-theme="dark"] header,:root:not([data-theme="light"]) header{background:#0F0D0E}
+.hd{max-width:1200px;margin:auto;padding:14px 18px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.hd h1{font-size:20px;line-height:1.2}.hd small{display:block;opacity:.7;font-family:"Libre Franklin",sans-serif;font-size:12.5px;margin-top:2px}
+nav{max-width:1200px;margin:auto;padding:0 18px;display:flex;gap:4px;overflow-x:auto}
+nav button{background:none;border:0;color:#fff;opacity:.7;padding:10px 14px;font:600 14px inherit;font-family:inherit;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
+nav button[aria-selected=true]{opacity:1;border-color:var(--red)}
+main{max-width:1200px;margin:auto;padding:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px}
+.grid{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:16px}
+@media(max-width:860px){.grid{grid-template-columns:1fr}}
+.view{display:none}.view.on{display:block}
+button.b{background:var(--red);color:#fff;border:0;border-radius:7px;padding:8px 14px;font:600 14px inherit;font-family:inherit;cursor:pointer}
+button.b:hover{background:var(--red-d)}button.g{background:none;border:1px solid var(--line);color:var(--ink);border-radius:7px;padding:6px 10px;font:500 13px inherit;font-family:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+input{font:inherit;padding:9px 11px;border:1px solid var(--line);border-radius:7px;background:var(--bg);color:var(--ink);min-width:0}
+#chat{display:flex;flex-direction:column;height:min(66vh,620px)}
+#msgs{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding:4px 2px}
+.m{max-width:88%;padding:10px 13px;border-radius:12px;white-space:pre-wrap}
+.m.u{align-self:flex-end;background:var(--red);color:#fff;border-bottom-right-radius:3px}
+.m.a{align-self:flex-start;background:var(--bg);border:1px solid var(--line);border-bottom-left-radius:3px}
+.m.t{align-self:center;font-size:12.5px;color:var(--mut);background:none;padding:2px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.chips button{border:1px solid var(--red);color:var(--red);background:none;border-radius:99px;padding:5px 11px;font:500 13px inherit;font-family:inherit;cursor:pointer}
+.chips button:hover{background:var(--soft)}
+.row{display:flex;gap:8px}.row input{flex:1}
+ul.rules{padding-left:18px;margin:8px 0}ul.rules li{margin:5px 0}
+.no{color:var(--red)}.yes{color:var(--ok)}
+.tag{display:inline-block;font-size:12px;padding:2px 8px;border-radius:99px;background:var(--soft);color:var(--red);font-weight:600}
+.tag.ok{background:rgba(31,122,77,.15);color:var(--ok)}
+.board{display:grid;grid-template-columns:repeat(7,minmax(190px,1fr));gap:10px;overflow-x:auto;padding-bottom:8px}
+.col{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px;min-height:240px}
+.col.blk{border-color:var(--red);background:var(--soft)}
+.col h3{font-size:14px;display:flex;justify-content:space-between;gap:6px;margin:2px 2px 8px}
+.col h3 span{background:var(--ink);color:var(--bg);border-radius:99px;font:600 12px "Libre Franklin";padding:1px 8px;height:fit-content}
+.k{background:var(--bg);border:1px solid var(--line);border-left:4px solid var(--mut);border-radius:7px;padding:8px;margin-bottom:8px;font-size:13px}
+.k.old{border-left-color:var(--warn)}.k.bl{border-left-color:var(--red)}.k.done{border-left-color:var(--ok)}
+.k b{font-size:13.5px}.k p{margin:3px 0;color:var(--mut)}.k .act{display:flex;gap:5px;margin-top:6px;flex-wrap:wrap}
+.steps{list-style:none;padding:0;margin:14px 0}
+.steps li{display:flex;gap:12px;padding:8px 0;position:relative;color:var(--mut)}
+.steps li i{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);flex:none;background:var(--card);z-index:1}
+.steps li:not(:last-child):before{content:"";position:absolute;left:10px;top:30px;bottom:-8px;width:2px;background:var(--line)}
+.steps li.d{color:var(--ink)}.steps li.d i{background:var(--ok);border-color:var(--ok)}
+.steps li.c{color:var(--ink);font-weight:600}.steps li.c i{background:var(--red);border-color:var(--red);box-shadow:0 0 0 4px var(--soft)}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.kpi .n{font:700 40px "Source Serif 4",serif;color:var(--red);line-height:1.1}
+.bar{height:8px;background:var(--line);border-radius:9px;overflow:hidden;margin:8px 0}.bar i{display:block;height:100%;background:var(--red)}
+.log{font-size:13px;max-height:180px;overflow:auto}.log div{padding:6px 0;border-bottom:1px solid var(--line)}
+.note{font-size:12.5px;color:var(--mut)}
+#cop p{margin:6px 0}.tag{margin-top:4px}
+@media(prefers-reduced-motion:no-preference){.m{animation:in .2s ease-out}@keyframes in{from{opacity:0;transform:translateY(4px)}}}
+</style>
+</head>
+<body>
+<header>
+ <div class="hd">
+  <svg width="46" height="54" viewBox="0 0 46 54" aria-label="Escudo UPB (representación simplificada)"><path d="M3 3h40v26c0 13-9 20-20 24C12 49 3 42 3 29z" fill="#C8102E" stroke="#fff" stroke-width="2"/><path d="M23 11v26M13 20h20" stroke="#fff" stroke-width="4"/><path d="M10 40c5 3 8 5 13 7 5-2 8-4 13-7" stroke="#fff" stroke-width="2" fill="none"/></svg>
+  <div><h1>Agente de Certificados Académicos<small>Universidad Pontificia Bolivariana · Seccional Bucaramanga · Kanban V1 (prototipo con datos ficticios)</small></h1></div>
+ </div>
+ <nav role="tablist">
+  <button role="tab" data-v="agente" aria-selected="true">Asistente</button>
+  <button role="tab" data-v="seg" aria-selected="false">Mi solicitud</button>
+  <button role="tab" data-v="kan" aria-selected="false">Tablero Kanban</button>
+  <button role="tab" data-v="ind" aria-selected="false">Indicadores</button>
+  <button role="tab" data-v="tst" aria-selected="false">Prueba V1</button>
+ </nav>
+</header>
+<main>
+
+<section id="agente" class="view on"><div class="grid">
+ <div class="card">
+  <div id="chat"><div id="msgs" aria-live="polite"></div>
+   <div class="chips" id="chips"></div>
+   <div class="row"><input id="inp" placeholder="Escribe tu pregunta o tu ID de solicitud…" aria-label="Mensaje"><button class="b" id="send">Enviar</button></div>
+  </div>
+  <p class="note" id="mode"></p>
+ </div>
+ <div style="display:grid;gap:16px;align-content:start">
+  <div class="card"><h3>Qué hace y qué no</h3>
+   <ul class="rules">
+    <li class="yes">Orienta sobre requisitos y pasos del trámite.</li>
+    <li class="yes">Consulta el estado de tu caso, solo con ID y código.</li>
+    <li class="yes">Te deriva a Secretaría cuando no puede resolver.</li>
+    <li class="no">No inventa fechas de entrega ni promete plazos.</li>
+    <li class="no">No aprueba, firma ni modifica registros.</li>
+    <li class="no">No accede a SIGAA ni pide datos personales.</li>
+   </ul></div>
+  <div class="card"><h3>Casos de prueba</h3>
+   <p class="note">Datos ficticios. Escribe el ID y el código en el chat o en «Mi solicitud».</p>
+   <div id="demo" class="note"></div></div>
+  <div class="card"><h3>Derivaciones a Secretaría</h3><div id="hand" class="log note">Ninguna aún.</div></div>
+ </div>
+</div></section>
+
+<section id="seg" class="view"><div class="grid">
+ <div class="card"><h2>Consulta tu solicitud</h2>
+  <p class="note">Ingresa el ID y el código de 4 dígitos que recibiste al radicar.</p>
+  <div class="row" style="flex-wrap:wrap"><input id="sid" placeholder="K-001" aria-label="ID"><input id="scode" placeholder="Código" inputmode="numeric" maxlength="4" aria-label="Código"><button class="b" id="sgo">Consultar</button></div>
+  <div id="sout" style="margin-top:14px"></div></div>
+ <div class="card"><h3>Cómo te avisaremos</h3>
+  <p>Recibirás un aviso por correo cuando tu caso pase a <b>Corrección requerida</b> o a <b>Lista para entrega</b>. Los mensajes no incluyen datos personales.</p>
+  <h3 style="margin-top:14px">Plazos</h3><p class="note">Secretaría estima 4 a 7 días hábiles para casos completos; los devueltos pueden superar 8. Es una orientación basada en entrevista, no un compromiso.</p></div>
+</div></section>
+
+<section id="kan" class="view">
+ <div class="card" style="margin-bottom:14px"><div class="row" style="align-items:center;flex-wrap:wrap"><h2 style="flex:1">Tablero del trámite (vista Secretaría)</h2><button class="g" id="sim">⏩ Simular +1 día</button><button class="g" id="brief">✨ Resumen diario</button><button class="g" id="new">+ Registrar solicitud</button><button class="g" id="rst">Reiniciar demo</button></div>
+  <p class="note">FIFO por fecha de ingreso. El WIP se muestra por columna; no se fija límite numérico hasta conocer la capacidad real. Tarjetas con más de 3 días sin movimiento se resaltan.</p></div>
+ <div class="board" id="board"></div>
+ <div class="card" id="cop" style="display:none;margin-top:14px"></div>
+ <div class="card" style="margin-top:14px"><h3>Bitácora y avisos automáticos (simulados)</h3><div class="log" id="log"></div></div>
+</section>
+
+<section id="tst" class="view"><div class="card" style="margin-bottom:14px"><h2>Prueba de usabilidad V1 (Control 4)</h2>
+ <p class="note">Ficha para registrar la prueba con 5 a 10 usuarios. Los contadores inician en cero: no hay resultados reales hasta ejecutar la prueba.</p>
+ <div class="row" style="align-items:center"><button class="g" id="tnew">+ Nuevo participante</button><b id="tpn">0 participantes</b><button class="g" id="trst">Reiniciar ficha</button></div></div><div id="tl"></div></section>
+<section id="ind" class="view"><div class="kpi" id="kpi"></div>
+ <div class="card" style="margin-top:14px"><h3>Hallazgos que atiende el prototipo</h3>
+  <ul class="rules"><li>H1 Visibilidad: tarjeta con ID y vista de seguimiento.</li><li>H2 Consultas: avisos por cambio de estado y autoservicio con el agente.</li><li>H3 Devoluciones: estado «Corrección requerida» con motivo y acción.</li><li>H4 Firma: columna propia con antigüedad visible.</li><li>H5 Plazos: solo se muestra un rango orientativo, nunca una fecha inventada.</li></ul>
+  <p class="note">Línea base de encuesta (n=18, muestra por conveniencia): describe únicamente a quienes respondieron. Los valores del tablero son simulados y no miden desempeño real.</p></div>
+</section>
+</main>
+
+<script>
+const $=s=>document.querySelector(s),TODAY=new Date(2026,9,8);
+const ST=["Recibida","Validación documental y pago","Corrección requerida","En elaboración","Pendiente de firma","Lista para entrega","Entregada / cerrada"];
+const AREA=["Recepción","Validación","Estudiante","Elaboración","Firma autorizada","Secretaría","—"];
+const NEXT=["Secretaría revisará tus soportes.","Se verifican documentos y pago.","Entrega el ajuste solicitado; luego se revalida.","Se prepara el certificado para firma.","Espera de firma autorizada (espera interna).","Reclama tu certificado en Secretaría con tu documento.","Trámite cerrado."];
+const SEED=()=>[
+{id:"K-001",c:"4821",t:"Certificado de notas",ing:0,ult:0,e:0},
+{id:"K-002",c:"7305",t:"Certificado de estudios",ing:2,ult:1,e:1},
+{id:"K-003",c:"1196",t:"Certificado de notas",ing:4,ult:1,e:3},
+{id:"K-004",c:"5530",t:"Certificado de estudios",ing:6,ult:4,e:4},
+{id:"K-005",c:"9042",t:"Certificado de notas",ing:7,ult:0,e:5},
+{id:"K-006",c:"2674",t:"Certificado de estudios",ing:5,ult:3,e:2,m:"Falta comprobante de pago"},
+{id:"K-007",c:"3318",t:"Certificado de notas",ing:9,ult:2,e:6},
+{id:"K-008",c:"6150",t:"Certificado de estudios",ing:6,ult:1,e:6}];
+let cases=SEED(),LOG=[],HAND=[];
+const fmt=d=>{const x=new Date(TODAY);x.setDate(x.getDate()-d);return x.toLocaleDateString("es-CO",{day:"numeric",month:"short"})};
+const find=id=>cases.find(k=>k.id===String(id).toUpperCase().trim());
+const mk=(t,c,p)=>{const e=document.createElement(t);if(c)e.className=c;if(p!=null)e.textContent=p;return e};
+function log(m){LOG.unshift(fmt(0)+" · "+m);$("#log").replaceChildren(...LOG.map(x=>mk("div","",x)))}
+function notify(k){if(k.e===2)log(`Aviso enviado (${k.id}): "Tu solicitud requiere una corrección: ${k.m}. Ingresa a Mi solicitud para ver cómo."`);
+ if(k.e===5)log(`Aviso enviado (${k.id}): "Tu certificado está listo para entrega en Secretaría."`)}
+function move(k,e,m){k.e=e;k.m=m;k.ult=0;log(`${k.id} → ${ST[e]}${m?" ("+m+")":""}`);notify(k);draw()}
+function draw(){
+ const b=$("#board");b.replaceChildren();
+ ST.forEach((s,i)=>{const L=cases.filter(k=>k.e===i),col=mk("div","col"+(i===2?" blk":""));
+  const h=mk("h3");h.append(mk("div","",s),mk("span","",L.length));col.append(h);
+  L.forEach(k=>{const old=k.e<6&&k.e!==2&&k.ult>3,cd=mk("div","k"+(k.e===2?" bl":old?" old":k.e===6?" done":""));
+   cd.append(mk("b","",k.id+" · "+k.t),mk("p","","Ingreso "+fmt(k.ing)+" · último mov. "+fmt(k.ult)));
+   cd.append(mk("p","","Área: "+AREA[k.e]));
+   const rk=risk(k);if(rk!=null){const t=mk("span","tag"+(rk===0?" ok":""),RL[rk]);t.title="Heurística: antigüedad frente a los 4–7 días hábiles que estima Secretaría";cd.append(t)}
+   if(k.m)cd.append(mk("p","no","Bloqueo: "+k.m+" (espera del estudiante)"));
+   if(old)cd.append(mk("p","","⚠ "+k.ult+" días sin movimiento"));
+   const a=mk("div","act");
+   if(k.e===1){a.append(btn("Validar OK",()=>move(k,3)),btn("Pedir corrección",()=>{const m=prompt("Motivo de la corrección (sin datos personales):","Documento incompleto");if(m)move(k,2,m)}))}
+   else if(k.e===2)a.append(btn("Corrección recibida",()=>move(k,1)));
+   else if(k.e<6)a.append(btn(k.e===5?"Confirmar entrega":"Avanzar",()=>move(k,k.e+1)));
+   cd.append(a);col.append(cd)});
+  b.append(col)});
+ kpis();demo();}
+const btn=(t,f)=>{const x=mk("button","g",t);x.onclick=f;return x};
+function demo(){$("#demo").replaceChildren(...cases.filter(k=>k.e<6).map(k=>mk("div","",`${k.id} · código ${k.c} · ${ST[k.e]}`)))}
+function kpis(){
+ const done=cases.filter(k=>k.e===6),lt=done.length?(done.reduce((s,k)=>s+k.ing-k.ult,0)/done.length).toFixed(1):"—";
+ const blk=cases.filter(k=>k.e===2).length,sign=cases.filter(k=>k.e===4).length;
+ const c=(n,t,d,p)=>{const x=mk("div","card");x.append(mk("div","n",n),mk("b","",t),mk("p","note",d));if(p!=null){const b=mk("div","bar");const i=mk("i");i.style.width=p+"%";b.append(i);x.append(b)}return x};
+ $("#kpi").replaceChildren(
+  c("94,4 %","Consultas adicionales","17 de 18 encuestados preguntaron al menos una vez por el estado. Línea base perceptual.",94.4),
+  c("5,6 %","Trazabilidad percibida","1 de 18 podía conocer siempre el estado. Meta de la V1: elevar esta cifra en la prueba.",5.6),
+  c(lt+(done.length?" días":""),"Lead time (simulado)","Entrega − recepción sobre "+done.length+" casos ficticios cerrados. El real requiere registros autorizados.",null),
+  c(blk+" / "+sign,"Bloqueados / en firma ahora","Casos en Corrección requerida y Pendiente de firma en el tablero.",null))}
+/* ---------- seguimiento ---------- */
+function caseCard(k){const w=mk("div");
+ const t=mk("h3","",k.id+" · "+k.t);w.append(t,mk("p","note","Ingreso "+fmt(k.ing)+" · Último movimiento "+fmt(k.ult)));
+ const ul=mk("ul","steps");ST.forEach((s,i)=>{if(i===2&&k.e!==2)return;const li=mk("li",k.e===i?"c":(i<k.e?"d":""));li.append(mk("i"),mk("span","",s));ul.append(li)});
+ w.append(ul);const n=mk("div","card");n.style.background="var(--soft)";
+ n.append(mk("b","","Qué sigue: "),mk("span","",NEXT[k.e]));if(k.m)n.append(mk("p","no","Acción requerida: "+k.m));w.append(n);return w}
+function lookup(id,code){const k=find(id);if(!k||k.c!==String(code).trim())return null;return k}
+$("#sgo").onclick=()=>{const k=lookup($("#sid").value,$("#scode").value),o=$("#sout");o.replaceChildren(k?caseCard(k):mk("p","no","No encontramos una solicitud con ese ID y código. Revisa los datos o pide ayuda en el Asistente."))};
+/* ---------- agente ---------- */
+const REQ=`REQUISITOS (fuente: entrevista a Secretaría): 1) identificar el requisito del certificado, 2) diligenciar el formato, 3) realizar el pago cuando aplique, 4) presentar la solicitud de forma presencial o por correo. Las devoluciones suelen deberse a documentos, pago o datos incompletos. Se avisa por correo cuando está lista y se entrega presencialmente en Secretaría. Valores, formatos y horarios exactos: confirmar con Secretaría.`;
+const SYS=`Eres el Agente UPB de Certificados, asistente de la Universidad Pontificia Bolivariana, Seccional Bucaramanga. Responde en español, con calidez y brevedad (máx. 6 líneas). Fuentes permitidas: el bloque REQUISITOS y la herramienta consultar_caso (requiere ID tipo K-001 y código de 4 dígitos que da el estudiante). Reglas: no inventes fechas, costos, horarios ni requisitos; no prometas plazos (solo di que Secretaría estima 4-7 días hábiles para casos completos y que los devueltos pueden superar 8, como orientación); no apruebes ni modifiques nada; no pidas nombres ni datos personales; si no tienes la información o el estudiante lo pide, usa solicitar_humano. Si el estudiante pregunta por su caso y no dio ID y código, pídelos.\n${REQ}`;
+let hist=[],busy=false,sample=null;
+const msgs=$("#msgs");
+function say(t,c){const m=mk("div","m "+c,t);msgs.append(m);msgs.scrollTop=msgs.scrollHeight;return m}
+function tool_caso({id,codigo}){const k=lookup(id,codigo);if(!k)return{error:"No existe un caso con ese ID y código. No reveles si el ID existe."};
+ document.querySelector("#sid").value=k.id;$("#scode").value=k.c;$("#sgo").click();
+ return{id:k.id,tipo:k.t,estado:ST[k.e],area_actual:AREA[k.e],siguiente_paso:NEXT[k.e],bloqueo:k.m||null,ingreso:fmt(k.ing),ultimo_movimiento:fmt(k.ult),dias_sin_movimiento:k.ult}}
+function tool_humano({motivo}){HAND.unshift(fmt(0)+" · "+String(motivo).slice(0,120));$("#hand").replaceChildren(...HAND.map(x=>mk("div","",x)));return{ok:true,mensaje:"Solicitud de contacto registrada para Secretaría."}}
+function local(q){const s=q.toLowerCase(),id=(q.match(/k-?\d{3}/i)||[])[0],code=(q.match(/\b\d{4}\b/)||[])[0];
+ if(id){const i=id.toUpperCase().replace(/^K(\d)/,"K-$1");if(!code)return`Encontré el ID ${i}. Para consultar tu caso necesito también el código de 4 dígitos.`;
+  const r=tool_caso({id:i,codigo:code});if(r.error)return"No encontré un caso con ese ID y código. Verifica los datos o te derivo a Secretaría.";
+  return`${r.id} (${r.tipo}): ${r.estado}.\nQué sigue: ${r.siguiente_paso}${r.bloqueo?"\nAcción requerida: "+r.bloqueo+".":""}\nÚltimo movimiento: ${r.ultimo_movimiento}. Abre «Mi solicitud» para ver la línea de avance.`}
+ if(/requisit|document|formato|pago|c[oó]mo (solicito|pido)|solicitar/.test(s))return"Pasos del trámite:\n1) Identifica el requisito de tu certificado.\n2) Diligencia el formato.\n3) Realiza el pago cuando aplique.\n4) Presenta la solicitud en Secretaría o por correo.\nLas devoluciones suelen deberse a documentos, pago o datos incompletos. Valores y formatos exactos: confírmalos con Secretaría.";
+ if(/cu[aá]nto|demor|tiempo|fecha|plazo|cuando|cuándo/.test(s))return"Secretaría estima 4 a 7 días hábiles para casos completos; si se devuelven por correcciones pueden superar 8. Es una orientación, no una fecha comprometida. Si tienes tu ID y código, consulto en qué estado va.";
+ if(/firma/.test(s))return"La firma autorizada es una etapa de espera interna. En el tablero tu caso aparece como «Pendiente de firma» y te avisaremos cuando esté listo.";
+ if(/devuel|correcci/.test(s))return"Si falta algo, tu caso pasa a «Corrección requerida» con el motivo y te llega un aviso. Cuando entregas el ajuste, vuelve a validación.";
+ if(/humano|secretar|persona|asesor/.test(s)){tool_humano({motivo:q});return"Listo, dejé registrada tu solicitud de contacto para Secretaría. Te responderán por los canales oficiales."}
+ return"No tengo información confiable sobre eso, así que prefiero no inventarla. Puedo orientarte con requisitos, consultar tu caso (ID + código) o derivarte con Secretaría."}
+async function ask(q){
+ if(busy||!q.trim())return;busy=true;say(q,"u");$("#inp").value="";const out=say("…","a");
+ try{
+  if(sample){hist.push({role:"user",content:q});
+   const turns=[{role:"user",content:SYS+"\n\nEstudiante: "+hist[0].content},...hist.slice(1)];
+   const r=await sample(turns,{cache:false,tools:[
+    {name:"consultar_caso",description:"Consulta el estado de una solicitud con ID y código de 4 dígitos.",inputSchema:{type:"object",properties:{id:{type:"string"},codigo:{type:"string"}},required:["id","codigo"]},execute:tool_caso},
+    {name:"solicitar_humano",description:"Deriva al estudiante a Secretaría.",inputSchema:{type:"object",properties:{motivo:{type:"string"}},required:["motivo"]},execute:tool_humano}],
+    onText:({text})=>{out.textContent=text}});
+   out.textContent=r.text;hist.push({role:"assistant",content:r.text})}
+  else out.textContent=local(q)
+ }catch(e){out.textContent=local(q)}
+ busy=false;msgs.scrollTop=msgs.scrollHeight}
+$("#send").onclick=()=>ask($("#inp").value);$("#inp").onkeydown=e=>{if(e.key==="Enter")ask(e.target.value)};
+["¿Qué requisitos necesito?","¿Cuánto demora?","¿Por qué me devolvieron la solicitud?","K-006 2674","Quiero hablar con Secretaría"].forEach(t=>{const b=mk("button","",t);b.onclick=()=>ask(t);$("#chips").append(b)});
+/* ---------- innovación ---------- */
+const RL=["Riesgo bajo","Riesgo medio","Riesgo alto"];let simD=0;
+function risk(k){if(k.e===6)return null;return(k.ing>=7||(k.e===4&&k.ult>3))?2:(k.ing>=5||k.ult>3||k.e===2)?1:0}
+$("#sim").onclick=()=>{simD++;cases.forEach(k=>{if(k.e===6)return;k.ing++;k.ult++;if(k.e===2||Math.random()>.4)return;
+ if(k.e===1&&Math.random()<.3){k.e=2;k.m="Datos incompletos en el formato"}else k.e=k.e===1?3:k.e+1;k.ult=0;log(`${k.id} → ${ST[k.e]}`);notify(k)});log(`Día simulado +${simD}`);draw()};
+function snap(){return cases.filter(k=>k.e<6).map(k=>`${k.id}|${ST[k.e]}|ingreso hace ${k.ing}d|sin mover ${k.ult}d|${RL[risk(k)]}${k.m?"|bloqueo: "+k.m:""}`).join("\n")}
+function plan(){const o=cases.filter(k=>k.e<6),cnt=ST.map((s,i)=>o.filter(k=>k.e===i).length),mx=Math.max(...cnt.slice(1,6)),bi=cnt.indexOf(mx,1),L=[];
+ const bl=o.filter(k=>k.e===2);if(bl.length)L.push("Bloqueados por el estudiante: "+bl.map(k=>k.id+" ("+k.m+")").join("; ")+". Reenviar recordatorio de corrección.");
+ const sg=o.filter(k=>k.e===4&&k.ult>3);if(sg.length)L.push("Firma con espera mayor a 3 días: "+sg.map(k=>k.id).join(", ")+". Escalar a la firma autorizada.");
+ const hi=o.filter(k=>risk(k)===2);if(hi.length)L.push("Riesgo alto: "+hi.map(k=>k.id).join(", ")+". Atender primero, respetando FIFO.");
+ const rd=o.filter(k=>k.e===5);if(rd.length)L.push("Listos para entrega: "+rd.map(k=>k.id).join(", ")+". Confirmar que el aviso salió.");
+ if(mx>0)L.push("Mayor acumulación: «"+ST[bi]+"» con "+mx+" casos (WIP visible; límite por validar).");
+ return L.length?L:["Sin alertas hoy."]}
+$("#brief").onclick=async()=>{const c=$("#cop");c.style.display="block";c.replaceChildren(mk("h3","","Resumen para la revisión diaria"));
+ const body=mk("div");body.style.whiteSpace="pre-wrap";body.textContent=plan().map(x=>"• "+x).join("\n");const n=mk("p","note","Resumen por reglas locales.");c.append(body,n);
+ if(sample){n.textContent="Mejorando con IA…";try{const r=await sample("Eres copiloto de Secretaría de la UPB. Con SOLO estos datos ficticios del tablero Kanban de certificados, escribe un plan para la revisión diaria: máximo 5 viñetas accionables, sin inventar datos ni nombres.\n"+snap(),{cache:false,onText:({text})=>{body.textContent=text}});body.textContent=r.text;n.textContent="Generado por IA con datos agregados del tablero. Revísalo antes de actuar."}catch(e){body.textContent=plan().map(x=>"• "+x).join("\n");n.textContent="Resumen por reglas locales."}}};
+const TT=["Identificar el estado de un caso","Reconocer la acción requerida","Encontrar el siguiente paso","Comprender la notificación de entrega"];let TR,CL,PN;
+function rstT(){TR=TT.map(()=>[0,0,0]);CL=[];PN=0;drawT()}
+function drawT(){const w=$("#tl");w.replaceChildren();$("#tpn").textContent=PN+" participantes";
+ TT.forEach((t,i)=>{const r=TR[i],n=r[0]+r[1]+r[2],p=n?Math.round(r[0]/n*100):0,d=mk("div","card");d.style.marginBottom="10px";d.append(mk("b","",t));
+  const row=mk("div");row.style.cssText="display:flex;gap:6px;margin:8px 0;flex-wrap:wrap";["Correcto","Parcial","Incorrecto"].forEach((l,j)=>row.append(btn(l+" ("+r[j]+")",()=>{TR[i][j]++;drawT()})));
+  const b=mk("div","bar"),f=mk("i");f.style.width=p+"%";b.append(f);d.append(row,b,mk("p","note",n?`${p} % correcto sobre ${n} registros. Regla: si es bajo, ajustar etiquetas o textos.`:"Sin registros"));w.append(d)});
+ const c=mk("div","card"),row=mk("div");row.style.cssText="display:flex;gap:6px;margin:8px 0";c.append(mk("b","","Claridad del aviso de entrega (1 a 5)"));
+ [1,2,3,4,5].forEach(v=>row.append(btn(String(v),()=>{CL.push(v);drawT()})));c.append(row,mk("p","note",CL.length?`Promedio ${(CL.reduce((a,b)=>a+b)/CL.length).toFixed(1)} sobre ${CL.length} respuestas`:"Sin respuestas"));w.append(c)}
+$("#tnew").onclick=()=>{PN++;drawT()};$("#trst").onclick=rstT;rstT();
+/* ---------- UI ---------- */
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{document.querySelectorAll("nav button").forEach(x=>x.setAttribute("aria-selected",x===b));document.querySelectorAll(".view").forEach(v=>v.classList.toggle("on",v.id===b.dataset.v))});
+$("#rst").onclick=()=>{cases=SEED();LOG=[];log("Demo reiniciada");draw()};
+$("#new").onclick=()=>{const n=cases.length+1,id="K-"+String(n).padStart(3,"0"),c=String(Math.floor(1000+Math.random()*9000));cases.push({id,c,t:Math.random()>.5?"Certificado de notas":"Certificado de estudios",ing:0,ult:0,e:0});log(`${id} registrada. Radicado entregado al estudiante (código ${c}).`);draw()};
+say("Hola, soy el agente de certificados de la UPB Bucaramanga. Puedo orientarte con requisitos y consultar el estado de tu solicitud con tu ID y código. No prometo fechas ni modifico registros.","a");
+$("#mode").textContent="Modo: reglas locales verificadas.";
+draw();log("Tablero cargado con 8 solicitudes ficticias");
+(async()=>{try{const s=await claude.use("sample");if(s){sample=s;$("#mode").textContent="Modo: IA generativa con herramientas (consultar_caso, solicitar_humano) y respaldo local si falla."}}catch(e){}})();
+</script>
+</body>
+</html>
